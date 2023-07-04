@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DemandeCertificat{% endblock %}
+
+{% block body %}
+    <h1>DemandeCertificat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande_certificat.id }}</td>
+            </tr>
+            <tr>
+                <th>Lieu_reception_certificat</th>
+                <td>{{ demande_certificat.LieuReceptionCertificat }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ demande_certificat.createdAt ? demande_certificat.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ demande_certificat.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ demande_certificat.Nom }}</td>
+            </tr>
+            <tr>
+                <th>NumeroTelephone</th>
+                <td>{{ demande_certificat.numeroTelephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_certificat_index') }}">back to list</a>
+
+    <a href="{{ path('app_demande_certificat_edit', {'id': demande_certificat.id}) }}">edit</a>
+
+    {{ include('demande_certificat/_delete_form.html.twig') }}
+{% endblock %}

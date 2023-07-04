@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DemandeCertificat index{% endblock %}
+
+{% block body %}
+    <h1>DemandeCertificat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lieu_reception_certificat</th>
+                <th>Created_at</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>NumeroTelephone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demande_certificat in demande_certificats %}
+            <tr>
+                <td>{{ demande_certificat.id }}</td>
+                <td>{{ demande_certificat.LieuReceptionCertificat }}</td>
+                <td>{{ demande_certificat.createdAt ? demande_certificat.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ demande_certificat.Prenom }}</td>
+                <td>{{ demande_certificat.Nom }}</td>
+                <td>{{ demande_certificat.numeroTelephone }}</td>
+                <td>
+                    <a href="{{ path('app_demande_certificat_show', {'id': demande_certificat.id}) }}">show</a>
+                    <a href="{{ path('app_demande_certificat_edit', {'id': demande_certificat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_certificat_new') }}">Create new</a>
+{% endblock %}

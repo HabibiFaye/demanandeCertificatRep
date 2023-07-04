@@ -1,0 +1,83 @@
+ {% extends 'base.html.twig' %} {% block title %}Demande en ligne{% endblock %} {% block body %}
+
+<head>
+
+    <style>
+        .header {
+            text-align: center;
+            padding: 50px;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .header p {
+            font-size: 20px;
+            font-style: italic;
+        }
+        
+        .body-content {
+            margin-top: 50px;
+        }
+        
+        .reservation-option,
+        .cancel-option {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 20px;
+            color: #fff;
+            background-color: #007bff;
+            padding: 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            font-weight: bolder;
+        }
+        
+        .reservation-option:hover,
+        .cancel-option:hover {
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 21px;
+            transform: scale(1.05);
+        }
+        
+        .navbar-text {
+            font-size: 21px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+
+
+    <title>Page d'accueil</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Bienvenue dans le site de demande de certificat de perte </h1>
+    </div>
+
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <a href="{{path('app_register')}}" class="reservation-option">Faire une demande </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <a href="{{path('app_etat_demande')}}" class="cancel-option">Verifier l'etat d'une demande </a>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+{% endblock %}
