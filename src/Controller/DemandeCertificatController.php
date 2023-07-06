@@ -8,7 +8,6 @@ use App\Form\DemandeCertificatType;
 use App\Repository\DemandeCertificatRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +31,7 @@ class DemandeCertificatController extends AbstractController
         $demandeCertificat = new DemandeCertificat();
         $demandeCertificat -> setCreatedAt(new DateTimeImmutable());
         $demandeCertificat -> setStatutDemande(0);
+        $demandeCertificat -> setStatut("En cours");
 
         $form = $this->createForm(DemandeCertificatType::class, $demandeCertificat);
         $form->handleRequest($request);
@@ -39,7 +39,10 @@ class DemandeCertificatController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $demandeCertificatRepository->save($demandeCertificat, true);
 
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            
+            return $this->render('demande/succes.html.twig');
+
+           // return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('demande_certificat/new.html.twig', [
@@ -48,14 +51,23 @@ class DemandeCertificatController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_demande_certificat_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_demande_certificat_show', methods: ['GET'])]
     public function show(DemandeCertificat $demandeCertificat): Response
     {
+        if($demandeCertificat -> isStatutDemande()){
+            $demandeCertificat -> setStatut("Accepter");
+
+        }
+        else
+            $demandeCertificat -> setStatut("En cours");
+
+        
 
         return $this->render('demande_certificat/show.html.twig', [
             'demande_certificat' => $demandeCertificat,
         ]);
     }
+   
 
     #[Route('/{id}/edit', name: 'app_demande_certificat_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, DemandeCertificat $demandeCertificat, DemandeCertificatRepository $demandeCertificatRepository): Response

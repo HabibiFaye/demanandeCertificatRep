@@ -21,7 +21,9 @@ class DemandeCertificatCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')
-            ->hideOnIndex(),
+            ->hideOnIndex()
+            ->hideOnForm(),
+        
             TextField::new('Prenom'),
             TextField::new('Nom'),
             TextField::new('Lieu_reception_certificat'),

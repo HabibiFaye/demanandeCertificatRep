@@ -33,9 +33,14 @@ class DemandeCertificat
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $statut_demande = null;
+   
 
+    #[ORM\Column]
+    private ?bool $statutDemande = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $statut = null;
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -119,15 +124,35 @@ class DemandeCertificat
         return $this->user ;
     }
 
+   
+
     public function isStatutDemande(): ?bool
     {
-        return $this->statut_demande;
+        return $this->statutDemande;
     }
 
-    public function setStatutDemande(?bool $statut_demande): static
+    public function setStatutDemande(bool $statutDemande): static
     {
-        $this->statut_demande = $statut_demande;
+        $this->statutDemande = $statutDemande;
 
         return $this;
     }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): static
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+   
+
+   
+    
+
 }

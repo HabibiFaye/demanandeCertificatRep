@@ -1,42 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %} votre Demande Certificat{% endblock %} {% block body %}
+<h1>DemandeCertificat</h1>
 
-{% block title %}DemandeCertificat{% endblock %}
-
-{% block body %}
-    <h1>DemandeCertificat</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ demande_certificat.id }}</td>
-            </tr>
-            <tr>
-                <th>Lieu_reception_certificat</th>
-                <td>{{ demande_certificat.LieuReceptionCertificat }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ demande_certificat.createdAt ? demande_certificat.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ demande_certificat.Prenom }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ demande_certificat.Nom }}</td>
-            </tr>
-            <tr>
-                <th>NumeroTelephone</th>
-                <td>{{ demande_certificat.numeroTelephone }}</td>
-            </tr>
+<table class="table">
+    <tb <tr>
+        <th>Lieu de reception du demande de certificat</th>
+        <td>{{ demande_certificat.LieuReceptionCertificat }}</td>
+        </tr>
+        <tr>
+            <th>Date de demande </th>
+            <td>{{ demande_certificat.createdAt ? demande_certificat.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Prenom</th>
+            <td>{{ demande_certificat.Prenom }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ demande_certificat.Nom }}</td>
+        </tr>
+        <tr>
+            <th>NumeroTelephone</th>
+            <td>{{ demande_certificat.numeroTelephone }}</td>
+        </tr>
+        <tr>
+            <th>Statut de la demande</th>
+            <th>
+                <p class=" d-inline-block alert alert-success"> {{demande_certificat.statut }}</p>
+            </th>
+        </tr>
         </tbody>
-    </table>
+</table>
 
-    <a href="{{ path('app_demande_certificat_index') }}">back to list</a>
+<a class="btn btn-secondary" href="{{ path('app_home') }}">Retour  a la page d'accueil </a>
 
-    <a href="{{ path('app_demande_certificat_edit', {'id': demande_certificat.id}) }}">edit</a>
-
-    {{ include('demande_certificat/_delete_form.html.twig') }}
-{% endblock %}
+<a class="btn btn-primary" href="{{ path('app_demande_certificat_edit', {'id': demande_certificat.id}) }}">Modifier</a> {{ include('demande_certificat/_delete_form.html.twig') }} {% endblock %}
