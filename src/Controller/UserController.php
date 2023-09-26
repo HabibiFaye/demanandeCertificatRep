@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Demande;
 use App\Entity\User;
-use App\Form\FormDemandeType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTimeImmutable;
 use App\Repository\DemandeRepository;
-use Dompdf\Dompdf;
+use Knp\Snappy\Pdf;
+
+
+
 
 
 #[Route('/user')]
@@ -23,7 +24,6 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository, Request $request): Response
     {
-       
         return $this->render('user/index.html.twig', [
             
             'users' => $userRepository->findAll(),
@@ -64,7 +64,6 @@ class UserController extends AbstractController
     }
 
    
-
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
@@ -93,18 +92,21 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/demandepdf', name: 'app_user_demandepdf')]
-    public function demandepdf(UserRepository $userRepository){
-      //  $user =  $userRepository->findOneById(11);;
-        $html =  $this->renderView('user/demandepdf.html.twig');
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml('bla bla bla');
-        $dompdf->setPaper('A4','portrait');
-        $dompdf->render();
-        $dompdf->output();
-        $dompdf->stream('demande.pdf',[
-            "Attachment"=>false
-        ]);    
+    private Pdf $pdf ;
+    public function __construct(Pdf $pdf)
+    {
+        $this->pdf = $pdf;
         
+    }
+    #[Route('/demandepdf', name: 'app_user_demandepdf')]
+    public function demandepdf(){
+
+    $this->pdf->SetOption('enable-local-file-access',true);
+    $html = $this->renderView('user/demandepdf.html.twig');
+        $pdfFile = $this->pdf->getOutputFromHtml($html);
+        $response = new Response($pdfFile);
+        $response->headers->set('Content-Type', 'application/pdf');    
+        $response->headers->set('Content-Disposition', 'inline; filename="demande.pdf"');
+    return $response;;
     }
 }
