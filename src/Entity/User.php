@@ -5,113 +5,132 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['uuid'], message: 'Il existe déja un compte avec ce numero')]
-class User implements UserInterface
+class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $uuid = null;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $dateNaissance = null;
 
     #[ORM\Column]
-    private array $roles = [];
+    private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DemandeCertificat::class)]
-    private Collection $demandeCertificat;
+    #[ORM\Column(nullable: true)]
+    private ?int $CIN = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Demande::class, orphanRemoval: true)]
+    private Collection $demandes;
 
     public function __construct()
     {
-        $this->demandeCertificat = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
+        $this->created_at= new \DateTimeImmutable();
     }
+    
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUuid(): ?string
+    public function getNom(): ?string
     {
-        return $this->uuid;
+        return $this->nom;
     }
 
-    public function setUuid(string $uuid): static
+    public function setNom(string $nom): static
     {
-        $this->uuid = $uuid;
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): static
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(\DateTimeInterface $dateNaissance): static
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCIN(): ?int
+    {
+        return $this->CIN;
+    }
+
+    public function setCIN(?int $CIN): static
+    {
+        $this->CIN = $CIN;
 
         return $this;
     }
 
     /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
+     * @return Collection<int, Demande>
      */
-    public function getUserIdentifier(): string
+    public function getDemandes(): Collection
     {
-        return (string) $this->uuid;
+        return $this->demandes;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function addDemande(Demande $demande): static
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * //@see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection<int, DemandeCertificat>
-     */
-    public function getDemandeCertificat(): Collection
-    {
-        return $this->demandeCertificat;
-    }
-
-    public function addDemandeCertificat(DemandeCertificat $demandeCertificat): static
-    {
-        if (!$this->demandeCertificat->contains($demandeCertificat)) {
-            $this->demandeCertificat->add($demandeCertificat);
-            $demandeCertificat->setUser($this);
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes->add($demande);
+            $demande->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeDemandeCertificat(DemandeCertificat $demandeCertificat): static
+    public function removeDemande(Demande $demande): static
     {
-        if ($this->demandeCertificat->removeElement($demandeCertificat)) {
+        if ($this->demandes->removeElement($demande)) {
             // set the owning side to null (unless already changed)
-            if ($demandeCertificat->getUser() === $this) {
-                $demandeCertificat->setUser(null);
+            if ($demande->getUser() === $this) {
+                $demande->setUser(null);
             }
         }
 
@@ -119,7 +138,9 @@ class User implements UserInterface
     }
     public function __toString()
     {
-        return $this->uuid ;
+        return $this->prenom;
     }
+
+    
 
 }

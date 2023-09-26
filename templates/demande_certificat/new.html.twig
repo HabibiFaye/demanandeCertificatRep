@@ -1,11 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}New DemandeCertificat{% endblock %} {% block body %}
+<h1> Demande de Certificat</h1>
 
-{% block title %}New DemandeCertificat{% endblock %}
+{{ include('demande_certificat/_form.html.twig') }}
 
-{% block body %}
-    <h1>Create new DemandeCertificat</h1>
-
-    {{ include('demande_certificat/_form.html.twig') }}
-
-    <a href="{{ path('app_demande_certificat_index') }}">back to list</a>
-{% endblock %}
+<a class="btn btn-danger  mt-4" href="{{ path('app_demande_certificat_index') }}">Retour</a> {% endblock %}

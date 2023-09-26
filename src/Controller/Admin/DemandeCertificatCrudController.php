@@ -4,16 +4,18 @@ namespace App\Controller\Admin;
 
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use App\Entity\DemandeCertificat;
+use App\Entity\Demande;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 
 class DemandeCertificatCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return DemandeCertificat::class;
+        return Demande::class;
     }
 
     
@@ -21,15 +23,13 @@ class DemandeCertificatCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')
-            ->hideOnIndex()
+          //  ->hideOnIndex()
             ->hideOnForm(),
-        
-            TextField::new('Prenom'),
-            TextField::new('Nom'),
-            TextField::new('Lieu_reception_certificat'),
-            TextField::new('user'),
+           TextField::new('Lieu_reception_certificat'),
+            IntegerField::new('user'),
             DateTimeField::new('created_at'),
             BooleanField::new('statut_demande'),
+          
             
         ];
     }

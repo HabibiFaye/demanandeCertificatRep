@@ -1,7 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %}Register{% endblock %} {% block body %}
-<h1>Register</h1>
+{% extends 'base.html.twig' %} {% block title %}demande{% endblock %} {% block body %}
+<div class="container mt-5 ">
 
-{{ form_errors(registrationForm) }} {{ form_start(registrationForm) }} {{ form_row(registrationForm.uuid) }}
+    {{ form_errors(registrationForm) }} {{ form_start(registrationForm) }} {{ form_row(registrationForm.uuid) }}
 
 
-<button type="submit" class="btn btn-primary">Register</button> {{ form_end(registrationForm) }} {% endblock %}
+    <button type="submit" class="btn btn-primary">Soumettre</button> {{ form_end(registrationForm) }}
+</div>
+{% endblock %}

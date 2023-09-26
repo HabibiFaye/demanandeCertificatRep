@@ -2,18 +2,22 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Demande;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 
 class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return User::class ;
     }
     public function configureCrud(Crud $crud): Crud
     {
@@ -26,9 +30,16 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('uuid'),
-            ArrayField::new('roles')
+            IdField::new('id')
+            //->hideOnIndex()
+            ->hideOnForm(),
+            TextField::new('prenom'),
+            TextField::new('nom'),
+            DateField::new('date_naissance'),
+            IntegerField::new('CIN'),
+           // CollectionField::new('demandes')
+           
+            
             
            
            // TextEditorField::new('description'),

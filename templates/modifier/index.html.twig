@@ -1,15 +1,15 @@
-{% extends 'base.html.twig' %} {% block title %}Modifier DemandeCertificat{% endblock %} {% block body %}
+{% extends 'base.html.twig' %} {% block title %}Demande{% endblock %} {% block body %}
 <div class="container">
+    <h3 class=" mt-3 mb-3">Verification </h3>
+    <form action="{{path('app_user_show')}}" method="get">
+        <div class=" container-fluid ">
 
-    <h2 class=" mt-3">Modifier Demande Certificat</h2>
-
-    <form method="get" action="{{ path('app_modifier_success') }}">
-        <input type="text" placeholder="Donnez le CIN" name="id" class="form-control mt-3" required>
-        <button href="#" class=" mt-4 btn btn-primary">valider</button>
+            <label for="dateNaissance">Date de Naissance</label><input id="dateNaissance" name="dateNaissance" type="date">
+            <button type="submit " class="btn btn-secondary" onclick="app_user_show ">Verifier</button>
+        </div>
 
     </form>
 
+
 </div>
-
-
 {% endblock %}

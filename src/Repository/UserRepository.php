@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -9,7 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<User>
  *
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method user|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -40,7 +41,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return User[] Returns an array of User objects
+//     * @return Utilisateur[] Returns an array of Utilisateur objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +55,7 @@ class UserRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?User
+//    public function findOneBySomeField($value): ?Utilisateur
 //    {
 //        return $this->createQueryBuilder('u')
 //            ->andWhere('u.exampleField = :val')
@@ -63,4 +64,14 @@ class UserRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findOneByDate($dateNaissance): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->Where('u.dateNaissance = :dateNaissance')
+            ->setParameter('dateNaissance', $dateNaissance)
+            ->getQuery()
+            ->getOneOrNullResult()
+            
+        ;
+    }
 }

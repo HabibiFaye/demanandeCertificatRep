@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\DemandeCertificat;
+use App\Entity\Demande;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -39,14 +39,14 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Demande Certificat');
+            ->setTitle('Demande');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-       // yield MenuItem::linkToCrud('Les utilisateurs', 'fas fa-bowl-rice', User::class);
-        yield MenuItem::linkToCrud('Les demandes des utilisateurs', 'fas fa-bowl-rice', DemandeCertificat::class);
+        yield MenuItem::linkToCrud('Les utilisateurs', 'fas fa-bowl-rice', User::class);
+        yield MenuItem::linkToCrud('Les demandes des utilisateurs', 'fas fa-bowl-rice', Demande::class);
 
     }
 }

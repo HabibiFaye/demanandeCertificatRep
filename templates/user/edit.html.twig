@@ -1,13 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Edit User{% endblock %} {% block body %}
+<div class="container mt-4">
+    <h3 class="">Modifier Demande </h3>
+    {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <div class=" d-flex justify-content-between">
+        {{ include('user/_delete_form.html.twig') }} <a class="btn btn-primary" href="{{ path('app_user_index') }}">Retour</a>
 
-{% block title %}Edit User{% endblock %}
+    </div>
 
-{% block body %}
-    <h1>Edit User</h1>
-
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+</div>
 {% endblock %}
