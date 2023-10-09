@@ -7,7 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Cascade;
+use Symfony\Component\Mime\Message;
+use Symfony\Component\Validator\Constraints as Assert ;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
@@ -18,9 +19,17 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'le nom doit faire minimum 2 caractères '
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'le prénom doit faire minimum 2 caractères '
+    )]
     private ?string $prenom = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -30,10 +39,14 @@ class User
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(nullable: true)]
+    
     private ?int $CIN = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Demande::class, orphanRemoval: true)]
     private Collection $demandes;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Adresse = null;
 
     public function __construct()
     {
@@ -139,6 +152,18 @@ class User
     public function __toString()
     {
         return $this->prenom;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->Adresse;
+    }
+
+    public function setAdresse(string $Adresse): static
+    {
+        $this->Adresse = $Adresse;
+
+        return $this;
     }
 
     

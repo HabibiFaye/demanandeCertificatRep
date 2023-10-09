@@ -1,10 +1,42 @@
 {% extends 'base.html.twig' %} {% block title %}Demande{% endblock %} {% block body %}
-<div class="container">
+<div class="container-fluid">
+    <h2 style="font-weight: bolder;" class="text-center mt-3 mb-5 ">Entrer vos informations </h2>
 
-    <h2 class=" mt-3 mb-3">Entrer vos informations </h2>
-    {{ form_errors(form) }} {{ form_start(form) }} {{ form_row(form.prenom) }} {{ form_row(form.nom) }}
-    <div class="col">{{ form_row(form.dateNaissance) }}</div> {{ form_row(form.CIN) }}
-    <button type="submit" class="btn btn-secondary">Valider</button>
+    {{ form_errors(form) }} {{ form_start(form) }}
+
+    <section class="container ">
+        <div class="row mb-2 ">
+            <div class="col-md-6 ">
+                {{ form_row(form.prenom) }}
+            </div>
+            <div class="col-md-6 ">
+                {{ form_row(form.nom) }}
+
+            </div>
+        </div>
+        <div class="row mt-3 ">
+            <div class="col-md-6 ">
+                {{ form_row(form.dateNaissance) }}
+            </div>
+            <div class="col-md-6 ">
+                {{ form_row(form.adresse) }}
+            </div>
+        </div>
+        <div class="row mt-3 ">
+            <div class="col-md-6 ">
+                {{ form_row(form1.LieuReception) }}
+            </div>
+            <div class="col-md-6 ">
+                {{ form_row(form.CIN) }}
+            </div>
+        </div>
+
+        <button style="font-weight: bolder;" type="submit " class="btn btn-secondary">Valider</button>
+
+
+    </section>
+
+
 
 </div>
 

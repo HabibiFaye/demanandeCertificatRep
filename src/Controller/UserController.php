@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Demande;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\FormDemandeType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,8 +39,13 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
+        $form1 = $this->createForm(FormDemandeType::class, $demande);
+        $form1->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+          
+       
             $userRepository->save($user, true);
             $demande -> setCreatedAt(new DateTimeImmutable());
             $demande -> setStatutDemande(0);
@@ -59,6 +65,7 @@ class UserController extends AbstractController
         return $this->renderForm('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+            'form1' =>$form1
             
         ]);
     }
@@ -98,11 +105,15 @@ class UserController extends AbstractController
         $this->pdf = $pdf;
         
     }
-    #[Route('/demandepdf', name: 'app_user_demandepdf')]
-    public function demandepdf(){
+    #[Route('demandepdf/{id}', name: 'app_user_demandepdf')]
+    public function demandepdf(UserRepository $userRepository,User $user){
+       
+        $userR = $userRepository->find( $user->getId());
 
     $this->pdf->SetOption('enable-local-file-access',true);
-    $html = $this->renderView('user/demandepdf.html.twig');
+    $html = $this->renderView('user/demandepdf.html.twig',[
+        'userR' => $userR
+    ]);
         $pdfFile = $this->pdf->getOutputFromHtml($html);
         $response = new Response($pdfFile);
         $response->headers->set('Content-Type', 'application/pdf');    

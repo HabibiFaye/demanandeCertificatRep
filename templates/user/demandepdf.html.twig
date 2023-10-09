@@ -24,7 +24,8 @@
     <h1 style="font-family: Raleway; " class=" mt-5 text-center background-primary ">
         CERTIFICAT <strong>DE DECLARATION DE PERTE</strong> </h1>
     <div class=" mt-5 text-center ">
-        <P>Le commissaire de Police,certifie que M. <strong>Jonh Doe</strong> né le 04/04/1992 ,<br> demeurant à Yeumbeul Nord,nous a déclaré avoir perdu sa carte d'identité CEDEAO dont le numero est ignoré.</P>
+        <P>Le commissaire de Police, certifie que M. <strong>{{userR.nom }} {{ userR.prenom }}</strong> né le {{ userR.dateNaissance?userR.dateNaissance|format_date('long','dd/MM/y'): '' }},<br> demeurant à Yeumbeul Nord,nous a déclaré avoir perdu sa carte
+            d'identité CEDEAO dont le numero est ignoré.</P>
     </div>
     <p class=" mt-5 text-end p-5 ">Délivré le 07/09/2021</p>
     <p style="font-family: Raleway;"><em>NOTA-<strong>Le present certificat ne peut en aucun cas remplacer la pièce déclaré perdue</strong> .</em>

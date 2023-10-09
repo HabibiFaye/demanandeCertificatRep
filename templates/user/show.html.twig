@@ -17,7 +17,7 @@
             <td class="table-active  table-success text-uppercase text-white">{{ user.demandes[0].statut }}</td>
             <td>
                 <button class="btn btn-secondary "> <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="text-light text-decoration-none">modifier</a> </button>
-                <button class="btn btn-secondary"> <a href="{{path('app_user_demandepdf')}}" class=" text-white text-decoration-none">impression</a> </button>
+                <button class="btn btn-secondary"> <a href="{{path('app_user_demandepdf', {'id': user.id})}}" class=" text-white text-decoration-none">impression</a> </button>
             </td>
 
         </tr>

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Demande;
 use App\Entity\User;
+use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,9 +16,11 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('nom',options:['label' => 'Nom *'])
+        ->add('nom',options:['label' => 'Nom *']
+        )
         ->add('prenom',options:['label' => 'Prenom *'])
         ->add('dateNaissance',BirthdayType::class, options:['label' => 'Date de Naissace *'])
+        ->add('adresse',options:['label' => 'Adresse domicile *'])
         ->add('CIN',options:['label' => 'Numero Carte d\'identité Nationale '])
     ;
         ;

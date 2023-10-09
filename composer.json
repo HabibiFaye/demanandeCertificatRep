@@ -12,7 +12,9 @@
         "doctrine/orm": "^2.15",
         "dompdf/dompdf": "^2.0",
         "easycorp/easyadmin-bundle": "^4.6",
+        "endroid/qr-code-bundle": "*",
         "knplabs/knp-snappy-bundle": "^1.9",
+        "paydunya/paydunya": "^1.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.22",
         "symfony/asset": "6.3.*",
@@ -42,6 +44,7 @@
         "symfony/web-link": "6.3.*",
         "symfony/yaml": "6.3.*",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/intl-extra": "^3.7",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {

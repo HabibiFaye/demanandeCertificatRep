@@ -72,6 +72,7 @@ public function findOneByDate($dateNaissance): ?User
             ->getQuery()
             ->getOneOrNullResult()
             
+            
         ;
     }
 }

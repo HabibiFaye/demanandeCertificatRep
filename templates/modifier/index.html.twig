@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %} {% block title %}Demande{% endblock %} {% block body %}
-<div class="container">
-    <h3 class=" mt-3 mb-3">Verification </h3>
-    <form action="{{path('app_user_show')}}" method="get">
-        <div class=" container-fluid ">
-
-            <label for="dateNaissance">Date de Naissance</label><input id="dateNaissance" name="dateNaissance" type="date">
-            <button type="submit " class="btn btn-secondary" onclick="app_user_show ">Verifier</button>
+<div class="container-fluid">
+    <h2 style="font-weight: bolder;" class="text-center mt-3 mb-5 ">Verification </h2>
+    <form class="container" action="{{path('app_user_show')}}" method="get">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="prenom">Prenom </label> <br><input id="prenom" name="prenom" type="text">
+            </div>
+            <div class="col-md-4">
+                <label for="nom">Nom </label> <br><input id="nom" name="nom" type="text">
+            </div>
+            <div class="col-md-4">
+                <label for="dateNaissance">Date de Naissance </label> <br><input id="dateNaissance" name="dateNaissance" type="date">
+            </div>
         </div>
-
+        <button type="submit " class="btn btn-secondary mt-4" onclick="app_user_show ">Verifier</button>
     </form>
-
 
 </div>
 {% endblock %}
